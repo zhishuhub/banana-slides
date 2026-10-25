@@ -16,7 +16,7 @@ const landingI18n = {
         title_start: "让创意",
         title_highlight: "瞬间落地",
         title_end: "无需繁琐排版",
-        subtitle: "专注于您的内容与想法，剩下的交给 Banana Slides。从大纲到精美幻灯片，只需几分钟。",
+        subtitle: "专注于您的内容与想法，剩下的交给 AI 幻灯片。从大纲到精美幻灯片，只需几分钟。",
         cta_primary: "免费开始使用"
       }
     }
@@ -29,7 +29,7 @@ const landingI18n = {
         title_start: "Turn Ideas into",
         title_highlight: "Reality Instantly",
         title_end: "No Formatting Hassle",
-        subtitle: "Focus on your content and ideas, leave the rest to Banana Slides. From outline to beautiful slides in seconds.",
+        subtitle: "Focus on your content and ideas, leave the rest to AI Slides. From outline to beautiful slides in seconds.",
         cta_primary: "Get Started for Free"
       }
     }
@@ -97,7 +97,7 @@ export const Landing: React.FC = () => {
         <div className="flex items-center gap-2">
           <img src={logoUrl} alt="Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain rounded-lg shadow-sm" />
           <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-            Banana Slides
+            AI Slides
           </span>
         </div>
         <div className="flex items-center gap-4">

@@ -121,7 +121,7 @@ export function DesktopTitleBar() {
       >
         <img src={logoUrl} alt="" style={{ width: 18, height: 18, display: 'block', flexShrink: 0 }} />
         <span style={{ fontSize: 13, fontWeight: 600, lineHeight: '18px', color: isDark ? '#e4e4e7' : '#374151', letterSpacing: '0.2px' }}>
-          Banana Slides
+          AI Slides
         </span>
       </div>
 

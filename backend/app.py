@@ -35,6 +35,7 @@ from controllers.material_controller import material_bp, material_global_bp
 from controllers.reference_file_controller import reference_file_bp
 from controllers.settings_controller import settings_bp
 from controllers.openai_oauth_controller import openai_oauth_bp
+from controllers.zhishu_connect_controller import zhishu_bp, apply_connection_to_settings
 from controllers import project_bp, page_bp, template_bp, user_template_bp, user_style_template_bp, export_bp, file_bp, style_bp, template_assets_bp, page_template_bp, template_mode_bp
 
 
@@ -160,6 +161,7 @@ def create_app():
     app.register_blueprint(settings_bp)
     app.register_blueprint(openai_oauth_bp)
     app.register_blueprint(style_bp)
+    app.register_blueprint(zhishu_bp)
 
     with app.app_context():
         if db_path_env:
@@ -190,6 +192,8 @@ def create_app():
                 repair_desktop_settings_schema(db)
         # Load settings from database and sync to app.config
         _load_settings_to_config(app)
+        # AI 地址和密钥只认一键接入的结果
+        apply_connection_to_settings()
 
     # Access code enforcement on all /api/ routes
     @app.before_request

@@ -29,7 +29,7 @@ import type { Task, TemplateAsset } from '@/types';
 
 const i18n = {
   zh: {
-    home: { title: '蕉幻' },
+    home: { title: 'AI 幻灯片' },
     ts: {
       title: '模板配置',
       back: '返回',
@@ -84,7 +84,7 @@ const i18n = {
     },
   },
   en: {
-    home: { title: 'Banana Slides' },
+    home: { title: 'AI Slides' },
     ts: {
       title: 'Template Setup',
       back: 'Back',

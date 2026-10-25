@@ -564,7 +564,7 @@ export const ReferenceFileSelector: React.FC<ReferenceFileSelectorProps> = React
           ref={fileInputRef}
           type="file"
           multiple
-          accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.md"
+          accept=".pdf,.docx,.pptx,.xls,.xlsx,.csv,.txt,.md"
           onChange={handleUpload}
           className="hidden"
         />

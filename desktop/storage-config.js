@@ -164,7 +164,7 @@ async function prepareDataRoot(dataRoot, allowInitialize = false) {
   if (!inspection.hasDatabase && !allowInitialize) {
     throw storageError(
       'EMPTY_DATA_LOCATION',
-      'EMPTY_DATA_LOCATION: The selected location has no Banana Slides database.',
+      'EMPTY_DATA_LOCATION: The selected location has no AI Slides database.',
     );
   }
   if (!inspection.exists) {

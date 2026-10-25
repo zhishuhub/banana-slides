@@ -13,7 +13,7 @@ const outDir = path.resolve(process.argv[3] || '/tmp/banana-desktop-markdown-ima
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const frontendRequire = createRequire(path.join(repoRoot, 'frontend', 'package.json'));
-const executable = path.join(path.resolve(appPath), 'Contents', 'MacOS', 'Banana Slides');
+const executable = path.join(path.resolve(appPath), 'Contents', 'MacOS', 'AI Slides');
 const smokeResultPath = path.join(outDir, 'smoke-result.json');
 const testResultPath = path.join(outDir, 'markdown-image-result.json');
 const screenshotPath = path.join(outDir, 'markdown-image.png');

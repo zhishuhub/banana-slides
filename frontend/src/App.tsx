@@ -9,7 +9,9 @@ import { TemplateSetupPage } from './pages/TemplateSetupPage';
 import { SlidePreview } from './pages/SlidePreview';
 import { SettingsPage } from './pages/Settings';
 import { useProjectStore } from './store/useProjectStore';
-import { useToast, AccessCodeGuard, DesktopTitleBar, UpdateChecker } from './components/shared';
+import { useToast, AccessCodeGuard, DesktopTitleBar } from './components/shared';
+import { ConnectGate } from './components/zhishu/ConnectGate';
+import { SiteUpdateNotice } from './components/zhishu/ZhishuSettings';
 import { getDesktopTopInset } from './components/shared/UpdateChecker';
 import { isDesktop } from '@/utils';
 
@@ -36,9 +38,10 @@ function App() {
 
   return (
     <>
-      <UpdateChecker />
       <div style={isDesktop ? { paddingTop: `${getDesktopTopInset()}px` } : undefined}>
         <AccessCodeGuard>
+          <ConnectGate>
+          <SiteUpdateNotice />
           {(() => {
             const Router = isDesktop ? HashRouter : BrowserRouter;
             return (
@@ -59,6 +62,7 @@ function App() {
               </Router>
             );
           })()}
+          </ConnectGate>
         </AccessCodeGuard>
       </div>
     </>

@@ -116,7 +116,7 @@ done
 codesign --verify --deep --strict --verbose=2 "$installed_app" 2>&1 | tee "$out_dir/codesign-verify.txt" || fail "codesign verification failed"
 spctl -a -vv "$installed_app" > "$out_dir/spctl.txt" 2>&1 || true
 
-app_exe="$installed_app/Contents/MacOS/Banana Slides"
+app_exe="$installed_app/Contents/MacOS/AI Slides"
 [[ -x "$app_exe" ]] || fail "App executable missing"
 
 export BANANA_DESKTOP_SMOKE=1

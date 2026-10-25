@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, shell, dialog, nativeImage, nativeTheme } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, shell, dialog, nativeImage, nativeTheme, clipboard } = require('electron');
 const { autoUpdater: electronAutoUpdater, CancellationToken } = require('electron-updater');
 const path = require('path');
 const log = require('electron-log');
@@ -252,7 +252,7 @@ function createTray() {
     icon = icon.resize({ width: 16, height: 16 });
   }
   tray = new Tray(icon);
-  tray.setToolTip('Banana Slides');
+  tray.setToolTip('AI 幻灯片');
 
   const contextMenu = Menu.buildFromTemplate([
     { label: '显示主窗口', click: () => { mainWindow?.show(); mainWindow?.focus(); } },
@@ -293,7 +293,7 @@ async function showDownloadedUpdateDialog(checkResult) {
     type: 'info',
     title: '更新已就绪',
     message: `新版本 v${checkResult.update.version} 已下载完成`,
-    detail: '重启 Banana Slides 即可完成更新。',
+    detail: '重启 AI 幻灯片即可完成更新。',
     buttons: ['重启并更新', '稍后重启'],
     defaultId: 0,
     cancelId: 1,
@@ -359,7 +359,7 @@ function createAppMenu() {
     ...(isMac ? [{
       label: app.name,
       submenu: [
-        { label: '关于 Banana Slides', role: 'about' },
+        { label: '关于 AI 幻灯片', role: 'about' },
         { type: 'separator' },
         { label: '隐藏', role: 'hide' },
         { label: '隐藏其他', role: 'hideOthers' },
@@ -421,18 +421,13 @@ function createAppMenu() {
       label: '帮助',
       submenu: [
         {
-          label: '检查更新...',
-          click: showManualUpdateDialog,
-        },
-        { type: 'separator' },
-        {
           label: '关于',
           click: () => {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
-              title: '关于 Banana Slides',
-              message: `Banana Slides v${app.getVersion()}`,
-              detail: 'AI-Native Presentation Generator',
+              title: '关于 AI 幻灯片',
+              message: `AI 幻灯片 v${app.getVersion()}`,
+              detail: '基于 Banana Slides 开源项目修改，遵循 AGPL-3.0 协议。',
             });
           },
         },
@@ -445,14 +440,20 @@ function createAppMenu() {
 
 function setupIPC() {
   ipcMain.handle('get-app-version', () => app.getVersion());
+  // 一键接入：识别剪贴板里的接入码，接入成功后清掉
+  ipcMain.handle('read-clipboard-text', () => clipboard.readText());
+  ipcMain.handle('clear-clipboard-text', (_event, expected) => {
+    if (clipboard.readText() === expected) clipboard.clear();
+  });
   ipcMain.handle('get-backend-port', () => pythonManager.getPort());
-  ipcMain.handle('check-for-updates', () => desktopAutoUpdater.checkForUpdates());
+  // 不连原项目的更新源，只返回当前状态
+  ipcMain.handle('check-for-updates', () => desktopAutoUpdater.getState());
   ipcMain.handle('get-update-state', () => desktopAutoUpdater.getState());
   ipcMain.handle('get-auto-update-settings', () => desktopAutoUpdater.getSettings());
   ipcMain.handle('set-automatic-updates-enabled', (_, enabled) => (
     desktopAutoUpdater.setAutomaticUpdatesEnabled(enabled)
   ));
-  ipcMain.handle('download-update', () => desktopAutoUpdater.downloadUpdate());
+  ipcMain.handle('download-update', () => desktopAutoUpdater.getState());
   ipcMain.handle('install-update', () => installDownloadedUpdate());
   ipcMain.handle('open-external', (_, url) => {
     try {
@@ -594,7 +595,7 @@ async function selectRecoveryDataRoot(startupError) {
       const choice = await dialog.showMessageBox(parentWindow, {
         type: 'error',
         title: '无法访问数据存储位置',
-        message: 'Banana Slides 无法访问已配置的数据存储位置。',
+        message: 'AI 幻灯片无法访问已配置的数据存储位置。',
         detail: error.message,
         buttons: ['选择其他位置', '退出'],
         defaultId: 0,
@@ -619,7 +620,7 @@ async function selectRecoveryDataRoot(startupError) {
         const confirmation = await dialog.showMessageBox(parentWindow, {
           type: 'warning',
           title: '确认使用新的数据位置',
-          message: '所选目录中没有 Banana Slides 数据库。',
+          message: '所选目录中没有 AI 幻灯片的数据库。',
           detail: '继续后将把此位置作为新的空数据目录使用。应用不会移动或删除原目录中的任何数据。',
           buttons: ['使用此位置', '重新选择'],
           defaultId: 1,
@@ -683,9 +684,7 @@ async function bootstrap() {
         query: { backendPort: String(port) },
       });
     }
-    if (!isSmokeMode()) {
-      desktopAutoUpdater.startAutomaticChecks();
-    }
+    // 不检查原项目的更新，新版本由网站的应用广场发布
   } catch (err) {
     log.error('[main] Startup failed:', err);
     if (splashWindow) splashWindow.close();
@@ -697,7 +696,7 @@ async function bootstrap() {
 configureSmokeUserDataPath();
 app.whenReady().then(bootstrap);
 if (process.platform === 'win32') {
-  app.setAppUserModelId('com.banana.slides');
+  app.setAppUserModelId('com.aislides.desktop');
 }
 
 app.on('activate', () => {

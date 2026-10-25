@@ -239,6 +239,9 @@ def update_settings():
         data = request.get_json()
         if not data:
             return bad_request("Request body is required")
+        # AI 地址、密钥、模型由一键接入决定，不接受修改
+        from controllers.zhishu_connect_controller import strip_connection_fields
+        data = strip_connection_fields(data)
 
         settings = Settings.get_settings()
 
@@ -491,6 +494,9 @@ def reset_settings():
 
         # Sync to app.config
         _sync_settings_to_config(settings)
+        # 恢复默认不影响一键接入
+        from controllers.zhishu_connect_controller import apply_connection_to_settings
+        apply_connection_to_settings()
 
         logger.info("Settings reset to defaults")
         return success_response(

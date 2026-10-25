@@ -90,22 +90,22 @@ Write-Step "InstallerDataRootBootstrap=$bootstrapDataRoot"
 
 function Get-CandidateRoots {
   @(
-    "$env:LOCALAPPDATA\Programs\Banana Slides",
+    "$env:LOCALAPPDATA\Programs\AI Slides",
     "$env:LOCALAPPDATA\Programs\banana-slides",
-    "$env:LOCALAPPDATA\Programs\BananaSlides",
+    "$env:LOCALAPPDATA\Programs\AISlides",
     "$env:LOCALAPPDATA\Programs",
-    "$env:ProgramFiles\Banana Slides",
-    "${env:ProgramFiles(x86)}\Banana Slides"
+    "$env:ProgramFiles\AI Slides",
+    "${env:ProgramFiles(x86)}\AI Slides"
   ) | Where-Object { $_ -and (Test-Path $_) } | Select-Object -Unique
 }
 
 function Find-InstalledApp {
   $explicitCandidates = @(
-    "$env:LOCALAPPDATA\Programs\Banana Slides\Banana Slides.exe",
-    "$env:LOCALAPPDATA\Programs\banana-slides\Banana Slides.exe",
-    "$env:LOCALAPPDATA\Programs\BananaSlides\Banana Slides.exe",
-    "$env:ProgramFiles\Banana Slides\Banana Slides.exe",
-    "${env:ProgramFiles(x86)}\Banana Slides\Banana Slides.exe"
+    "$env:LOCALAPPDATA\Programs\AI Slides\AI Slides.exe",
+    "$env:LOCALAPPDATA\Programs\banana-slides\AI Slides.exe",
+    "$env:LOCALAPPDATA\Programs\AISlides\AI Slides.exe",
+    "$env:ProgramFiles\AI Slides\AI Slides.exe",
+    "${env:ProgramFiles(x86)}\AI Slides\AI Slides.exe"
   )
   foreach ($candidate in $explicitCandidates) {
     if ($candidate -and (Test-Path $candidate)) {
@@ -115,7 +115,7 @@ function Find-InstalledApp {
 
   foreach ($root in (Get-CandidateRoots)) {
     $found = Get-ChildItem -Path $root -Recurse -File -Filter "*.exe" -ErrorAction SilentlyContinue |
-      Where-Object { $_.Name -eq "Banana Slides.exe" -and $_.FullName -notmatch "\\resources\\backend\\" } |
+      Where-Object { $_.Name -eq "AI Slides.exe" -and $_.FullName -notmatch "\\resources\\backend\\" } |
       Select-Object -First 1
     if ($found) { return $found }
   }
@@ -140,7 +140,7 @@ if (!$appExe) {
     Select-Object FullName,Length,LastWriteTime |
     Format-Table -AutoSize |
     Out-File -Encoding UTF8 (Join-Path $OutDir "banana-exe-candidates.txt")
-  Fail "Installed Banana Slides executable not found; installer exit code was $installerExitCode"
+  Fail "Installed AI Slides executable not found; installer exit code was $installerExitCode"
 }
 
 Write-Step "AppExe=$($appExe.FullName)"

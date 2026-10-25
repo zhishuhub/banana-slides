@@ -9,7 +9,7 @@ import { devLog } from '@/utils/logger';
 // 组件内翻译
 const previewI18n = {
   zh: {
-    home: { title: '蕉幻' },
+    home: { title: 'AI 幻灯片' },
     nav: { home: '主页', materialGenerate: '素材生成' },
     slidePreview: {
       pageGenerating: "该页面正在生成中，请稍候...", generationStarted: "已开始生成图片，请稍候...",
@@ -147,7 +147,7 @@ const previewI18n = {
     }
   },
   en: {
-    home: { title: 'Banana Slides' },
+    home: { title: 'AI Slides' },
     nav: { home: 'Home', materialGenerate: 'Generate Material' },
     slidePreview: {
       pageGenerating: "This page is generating, please wait...", generationStarted: "Image generation started, please wait...",
@@ -265,7 +265,7 @@ const previewI18n = {
       generationFailed: "Generation failed",
       qualityControl: "Quality Control",
       qualityControlDesc: "Review after generation; save only passing versions",
-      qualityControlTooltip: "When this is on, Banana Slides generates the image first but does not save it right away. It checks for unreadable text, strange text, rough-looking visuals, or a result that is far from your request. If something looks wrong, it tries again up to 3 times. Only a checked image is saved as a new version. If it still fails, you will be asked to adjust your description.",
+      qualityControlTooltip: "When this is on, AI Slides generates the image first but does not save it right away. It checks for unreadable text, strange text, rough-looking visuals, or a result that is far from your request. If something looks wrong, it tries again up to 3 times. Only a checked image is saved as a new version. If it still fails, you will be asked to adjust your description.",
       qualityControlOn: "On",
       qualityControlOff: "Off",
       qualityControlSaved: "Quality control setting saved",
@@ -2338,7 +2338,8 @@ export const SlidePreview: React.FC = () => {
                 >
                   {t('preview.exportPptx')}
                 </button>
-                <button
+                {/* 可编辑 PPTX 依赖 MinerU 解析版面，暂不提供 */}
+                {false && <button
                   onClick={() => {
                     setExportMenuOpen(false);
                     setEditablePptxDialogIconTransparent(currentProject?.enable_icon_subject_extraction ?? true);
@@ -2349,7 +2350,7 @@ export const SlidePreview: React.FC = () => {
                   className="w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-background-hover transition-colors text-sm disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {t('preview.exportEditablePptx')}
-                </button>
+                </button>}
                 <button
                   onClick={() => handleExport('pdf')}
                   disabled={!exportRangeHasAllImages}

@@ -11,6 +11,7 @@ import { appVersion } from '@/utils/appVersion';
 import { isDesktop } from '@/utils';
 import { startOpenAIOAuthMonitor } from '@/utils/openaiOAuthMonitor';
 import { DataStorageSettings } from '@/components/settings/DataStorageSettings';
+import { ZhishuAccountSection, ZhishuAbout } from '@/components/zhishu/ZhishuSettings';
 import type {
   DesktopAutoUpdateSettings,
   DesktopUpdateCheckResult,
@@ -55,6 +56,11 @@ interface ServiceTestState {
   message?: string;
   detail?: string;
 }
+
+// AI 服务由一键接入决定：不显示服务商、地址、密钥、模型设置和依赖第三方密钥的功能
+const ZHISHU_MANAGED_AI = true;
+const ZHISHU_HIDDEN_SECTION_KEYS = ['settings.sections.mineruConfig', 'settings.sections.baiduOcr', 'settings.sections.elevenlabs'];
+const ZHISHU_SERVICE_TESTS = new Set(['text-model', 'caption-model', 'image-model']);
 
 const INFERERA_AFFILIATE_URL = 'https://api.inferera.com/?aff=17EC';
 const VOLCENGINE_AGENTPLANS_CN_URL = 'https://www.volcengine.com/activity/ai618?utm_campaign=hw&utm_content=hw&utm_medium=devrel_tool_web&utm_source=OWO&utm_term=banana-slides';
@@ -1661,6 +1667,8 @@ export const Settings: React.FC = () => {
         {oauthPanel}
       </Modal>
       <div className="space-y-8">
+        {ZHISHU_MANAGED_AI && <ZhishuAccountSection />}
+        {!ZHISHU_MANAGED_AI && (<>
         {/* 默认 API 配置区块 */}
         <div data-testid="global-api-config-section">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-foreground-primary mb-1 flex items-center">
@@ -1761,10 +1769,12 @@ export const Settings: React.FC = () => {
             {modelConfigItems.map(renderModelConfigGroup)}
           </div>
         </div>
+        </>)}
 
         {/* 其余配置区块（配置驱动，排除性能配置和推理模式） */}
         <div className="space-y-8">
           {settingsSections.filter((section) =>
+            !(ZHISHU_MANAGED_AI && ZHISHU_HIDDEN_SECTION_KEYS.some((key) => section.title === t(key))) &&
             section.title !== t('settings.sections.performanceConfig') &&
             section.title !== t('settings.sections.textReasoning') &&
             section.title !== t('settings.sections.imageReasoning')
@@ -1785,7 +1795,7 @@ export const Settings: React.FC = () => {
         <SettingsAdvanced open={advancedOpen} onToggle={() => setAdvancedOpen(!advancedOpen)} label={t('settings.sections.advancedSettings')}>
               {isDesktop && <DataStorageSettings />}
 
-              {!oauthDialogOpen && oauthPanel}
+              {!ZHISHU_MANAGED_AI && !oauthDialogOpen && oauthPanel}
 
               {/* 并发性能配置 + 推理模式 */}
               {settingsSections.filter((section) =>
@@ -1870,7 +1880,7 @@ export const Settings: React.FC = () => {
                 action: api.testMineruPdf,
                 formatDetail: (data: any) => (data?.content_preview ? t('settings.serviceTest.results.parsePreview', { preview: data.content_preview }) : data?.message || ''),
               },
-            ].map((item) => {
+            ].filter((item) => !ZHISHU_MANAGED_AI || ZHISHU_SERVICE_TESTS.has(item.key)).map((item) => {
               const testState = serviceTestStates[item.key] || { status: 'idle' as TestStatus };
               const isLoadingTest = testState.status === 'loading';
               return (
@@ -1915,7 +1925,7 @@ export const Settings: React.FC = () => {
           </Button>
         </SettingsActions>
 
-        <SettingsAbout t={t} />
+        {ZHISHU_MANAGED_AI ? <ZhishuAbout /> : <SettingsAbout t={t} />}
       </div>
     </>
   );

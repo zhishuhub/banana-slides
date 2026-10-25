@@ -2,6 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   getAppVersion: () => ipcRenderer.invoke('get-app-version'),
+  readClipboardText: () => ipcRenderer.invoke('read-clipboard-text'),
+  clearClipboardText: (expected) => ipcRenderer.invoke('clear-clipboard-text', expected),
   checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),
   getUpdateState: () => ipcRenderer.invoke('get-update-state'),
   getAutoUpdateSettings: () => ipcRenderer.invoke('get-auto-update-settings'),

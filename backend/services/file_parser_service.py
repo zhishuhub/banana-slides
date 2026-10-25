@@ -177,7 +177,8 @@ class FileParserService:
                 return self._parse_text_file(file_path, filename)
             
             # Check if it's a spreadsheet file (xlsx, csv) - use markitdown
-            if file_ext in ['xlsx', 'xls', 'csv']:
+            # 没配 MinerU 时 PDF、Word、PPT 也用本地的 markitdown 解析出文字
+            if file_ext in ['xlsx', 'xls', 'csv'] or (not self.mineru_token and file_ext in ['pdf', 'docx', 'pptx']):
                 logger.info(f"File {filename} is a spreadsheet file, using markitdown...")
                 return self._parse_spreadsheet_file(file_path, filename)
             

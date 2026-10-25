@@ -13,42 +13,42 @@ import logoUrl from '@/assets/logo.png';
 const i18nDict = {
   zh: {
     guide: {
-      brand: '蕉幻 · Banana Slides',
+      brand: 'AI 幻灯片',
       setup: '快速开始',
       setupSub: '完成基础配置，开启 AI 创作之旅',
       features: '功能介绍',
       featuresSub: '探索如何使用 AI 快速创建精美 PPT',
       gallery: '结果案例',
-      gallerySub: '以下是使用蕉幻生成的 PPT 案例展示',
+      gallerySub: '以下是用 AI 幻灯片生成的 PPT 案例展示',
       galleryMore: '查看更多使用案例',
-      hi: '欢迎使用蕉幻！',
-      hiSub: '在开始前，让我们先完成基础配置',
-      s1: '配置 API Key',
-      s1d: '前往设置页面，配置项目需要使用的API服务，包括：',
-      s1i: ['您的 AI 服务提供商的 API Base 和 API Key', '配置文本、图像生成模型(banana pro)和图像描述模型', '若需要文件解析功能，请配置 MinerU Token', '若需要可编辑导出功能，请配置MinerU TOKEN 和 Baidu API KEY'],
-      s2: '保存并测试',
-      s2d: '配置完成后，务必点击「保存设置」按钮，然后在页面底部进行服务测试，确保各项服务正常工作。',
+      hi: '欢迎使用 AI 幻灯片！',
+      hiSub: '已经接入 AI，可以直接开始',
+      s1: 'AI 已接入',
+      s1d: '对话和生图都通过你在网站上的账号调用，不用自己配置 API：',
+      s1i: ['费用从网站余额扣除', '额度上限和停止授权在网站「我的应用」里设置', '设置页顶部可以看到接入状态，也可以重新接入'],
+      s2: '测试服务（可选）',
+      s2d: '想确认能不能用，可以在设置页底部点「开始测试」。',
       s3: '开始创作',
-      s3d: '配置成功后，返回首页即可开始使用 AI 生成精美的 PPT！',
+      s3d: '回到首页，输入一个主题就能用 AI 生成整套 PPT！',
       s4: '*问题反馈',
-      s4d: '若使用过程中遇到问题，可在github issue提出',
-      issueLink: '前往Github issue',
+      s4d: '使用中遇到问题，可以在网站「我的应用」里点「反馈」告诉我们。',
+      issueLink: '也可以在 GitHub 提交问题',
       settingsBtn: '前往设置页面',
       featuresOverview: '功能总览',
-      featuresOverviewDesc: '了解 Banana Slides 的完整工作流程、创作路径、素材支持和导出能力。',
+      featuresOverviewDesc: '了解 AI 幻灯片 的完整工作流程、创作路径、素材支持和导出能力。',
       feishuTutorial: '设置页图文教程',
       feishuTutorialDesc: '按步骤完成设置页面配置。',
       faq: '常见问题',
       faqDesc: '查看 API 配置、导出和使用过程中的常见问题。',
       hint: '提示',
-      hintBody: '如果您还没有 API Key，可以前往对应服务商官网注册获取。配置完成后，建议先进行服务测试，避免后续使用出现问题。',
+      hintBody: '生成会消耗网站余额，可以先在网站上给应用设一个额度上限。',
       prev: '上一页',
       next: '下一页',
       cases: { softwareDev: '软件开发最佳实践', deepseek: 'DeepSeek-V3.2技术展示', prefabFood: '预制菜智能产线装备研发和产业化', moneyHistory: '钱的演变：从贝壳到纸币的旅程' },
       feat: {
         paths: { t: '灵活多样的创作路径', d: '支持想法、大纲、页面描述三种起步方式，满足不同创作习惯。', items: ['一句话生成：输入一个主题，AI 自动生成结构清晰的大纲和逐页内容描述', '自然语言编辑：支持以 Vibe 形式口头修改大纲或描述，AI 实时响应调整', '大纲/描述模式：既可一键批量生成，也可手动调整细节'] },
         parse: { t: '强大的素材解析能力', d: '上传多种格式文件，自动解析内容，为生成提供丰富素材。', items: ['多格式支持：上传 PDF/Docx/MD/Txt 等文件，后台自动解析内容', '智能提取：自动识别文本中的关键点、图片链接和图表信息', '风格参考：支持上传参考图片或模板，定制 PPT 风格'] },
-        vibe: { t: '「Vibe」式自然语言修改', d: '不再受限于复杂的菜单按钮，直接通过自然语言下达修改指令。', items: ['局部重绘：对不满意的区域进行口头式修改（如「把这个图换成饼图」）', '整页优化：基于 nano banana pro 生成高清、风格统一的页面'] },
+        vibe: { t: '「Vibe」式自然语言修改', d: '不再受限于复杂的菜单按钮，直接通过自然语言下达修改指令。', items: ['局部重绘：对不满意的区域进行口头式修改（如「把这个图换成饼图」）', '整页优化：生成高清、风格统一的页面'] },
         export: { t: '开箱即用的格式导出', d: '一键导出标准格式，直接演示无需调整。', items: ['多格式支持：一键导出标准 PPTX 或 PDF 文件', '完美适配：默认 16:9 比例，排版无需二次调整'] },
         video: { t: 'TTS 讲解视频导出', d: '一键将幻灯片转换为带 AI 语音旁白和字幕的讲解视频。', items: ['AI 自动将页面描述转为口语化旁白，通过 edge-tts 合成语音', '支持中/英/日三种语言，多种音色可选', '逐句滚动字幕，自动按语音节奏切换', '可选 Ken Burns 画面动效（缩放/平移）'] },
       },
@@ -56,42 +56,42 @@ const i18nDict = {
   },
   en: {
     guide: {
-      brand: 'Banana Slides',
+      brand: 'AI Slides',
       setup: 'Quick Start',
       setupSub: 'Complete basic configuration and start your AI creation journey',
       features: 'Features',
       featuresSub: 'Explore how to use AI to quickly create beautiful PPT',
       gallery: 'Showcases',
-      gallerySub: 'Here are PPT examples generated with Banana Slides',
+      gallerySub: 'Here are PPT examples generated with AI Slides',
       galleryMore: 'View more examples',
-      hi: 'Welcome to Banana Slides!',
-      hiSub: "Let's complete the basic configuration before you start",
-      s1: 'Configure API Key',
-      s1d: 'Go to settings page to configure the API services needed for the project, including:',
-      s1i: ["Your AI service provider's API Base and API Key", 'Configure text, image generation model (banana pro) and image caption model', 'If you need file parsing, configure MinerU Token', 'If you need editable export, configure MinerU TOKEN and Baidu API KEY'],
-      s2: 'Save and Test',
-      s2d: 'After configuration, be sure to click "Save Settings" button, then test services at the bottom of the page to ensure everything works properly.',
+      hi: 'Welcome to AI Slides!',
+      hiSub: 'AI is connected, you can start right away',
+      s1: 'AI connected',
+      s1d: 'Chat and image generation use your account on the website. No API setup is needed:',
+      s1i: ['Usage is billed to your website balance', 'Set usage caps or stop authorization under "My apps" on the website', 'The top of Settings shows the connection and lets you reconnect'],
+      s2: 'Test services (optional)',
+      s2d: 'To make sure everything works, click "Start test" at the bottom of Settings.',
       s3: 'Start Creating',
-      s3d: 'After successful configuration, return to home page to start using AI to generate beautiful PPT!',
+      s3d: 'Go back to the home page and enter a topic to generate a whole deck with AI!',
       s4: '*Feedback',
-      s4d: 'If you encounter issues while using, please raise them on GitHub issues',
-      issueLink: 'Go to GitHub Issues',
+      s4d: 'If something goes wrong, tell us with "Feedback" under "My apps" on the website.',
+      issueLink: 'Or open an issue on GitHub',
       settingsBtn: 'Go to Settings',
       featuresOverview: 'Features Overview',
-      featuresOverviewDesc: 'Learn the full workflow, creation paths, material support, and export options in Banana Slides.',
+      featuresOverviewDesc: 'Learn the full workflow, creation paths, material support, and export options in AI Slides.',
       feishuTutorial: 'Settings Guide',
       feishuTutorialDesc: 'Follow the step-by-step guide to configure Settings.',
       faq: 'FAQ',
       faqDesc: 'Review common questions about API setup, export, and everyday use.',
       hint: 'Tip',
-      hintBody: "If you don't have an API Key yet, you can register on the corresponding service provider's website. After configuration, it's recommended to test services first to avoid issues later.",
+      hintBody: 'Generating slides uses your website balance. You can set a usage cap for the app on the website first.',
       prev: 'Previous',
       next: 'Next',
       cases: { softwareDev: 'Software Development Best Practices', deepseek: 'DeepSeek-V3.2 Technical Showcase', prefabFood: 'Prefab Food Intelligent Production Line R&D', moneyHistory: 'The Evolution of Money: From Shells to Paper' },
       feat: {
         paths: { t: 'Flexible Creation Paths', d: 'Support idea, outline, and page description as starting points to meet different creative habits.', items: ['One-line generation: Enter a topic, AI automatically generates a clear outline and page-by-page content description', 'Natural language editing: Support Vibe-style verbal modification of outlines or descriptions, AI responds in real-time', 'Outline/Description mode: Either batch generate with one click, or manually adjust details'] },
         parse: { t: 'Powerful Material Parsing', d: 'Upload multiple format files, automatically parse content to provide rich materials for generation.', items: ['Multi-format support: Upload PDF/Docx/MD/Txt files, backend automatically parses content', 'Smart extraction: Automatically identify key points, image links and chart information in text', 'Style reference: Support uploading reference images or templates to customize PPT style'] },
-        vibe: { t: '"Vibe" Style Natural Language Editing', d: 'No longer limited by complex menu buttons, directly issue modification commands through natural language.', items: ['Partial redraw: Make verbal modifications to unsatisfying areas (e.g., "Change this chart to a pie chart")', 'Full page optimization: Generate HD, style-consistent pages based on nano banana pro'] },
+        vibe: { t: '"Vibe" Style Natural Language Editing', d: 'No longer limited by complex menu buttons, directly issue modification commands through natural language.', items: ['Partial redraw: Make verbal modifications to unsatisfying areas (e.g., "Change this chart to a pie chart")', 'Full page optimization: Generate HD, style-consistent pages'] },
         export: { t: 'Ready-to-Use Format Export', d: 'One-click export to standard formats, present directly without adjustments.', items: ['Multi-format support: One-click export to standard PPTX or PDF files', 'Perfect fit: Default 16:9 ratio, no secondary layout adjustments needed'] },
         video: { t: 'TTS Narration Video Export', d: 'One-click conversion of slides into narrated videos with AI voiceover and subtitles.', items: ['AI converts page descriptions into natural spoken narration via edge-tts', 'Supports Chinese, English, and Japanese with multiple voice options', 'Sentence-by-sentence scrolling subtitles synchronized with speech', 'Optional Ken Burns animation effect (zoom/pan)'] },
       },
@@ -197,7 +197,7 @@ const renderSetupPage: PageRenderer = ({ t, lang, navigate, onClose }) => {
     <div className="space-y-6">
       <div className="text-center space-y-3">
         <div className="inline-flex items-center justify-center mr-4">
-          <img src={logoUrl} alt="Banana Slides Logo" className="h-16 w-16 object-contain" />
+          <img src={logoUrl} alt="AI Slides Logo" className="h-16 w-16 object-contain" />
         </div>
         <h3 className="text-2xl font-bold text-gray-800 dark:text-foreground-primary">{t('guide.hi')}</h3>
         <p className="text-sm text-gray-600 dark:text-foreground-tertiary">{t('guide.hiSub')}</p>
@@ -227,7 +227,7 @@ const renderSetupPage: PageRenderer = ({ t, lang, navigate, onClose }) => {
           <h4 className="font-semibold text-gray-800 dark:text-foreground-primary">{t('guide.s4')}</h4>
           <p className="text-sm text-gray-600 dark:text-foreground-tertiary">{t('guide.s4d')}</p>
         </div>
-        <a href="https://github.com/Anionex/banana-slides/issues" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-banana-600 hover:text-banana-700 font-medium">
+        <a href="https://github.com/zhishuhub/banana-slides/issues" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-banana-600 hover:text-banana-700 font-medium">
           <ExternalLink size={14} />
           {t('guide.issueLink')}
         </a>

@@ -1,5 +1,5 @@
-appId: com.banana.slides
-productName: Banana Slides
+appId: com.aislides.desktop
+productName: AI Slides
 electronDist: node_modules/electron/dist
 
 directories:
@@ -59,7 +59,7 @@ win:
     - target: nsis
       arch:
         - x64
-  artifactName: "BananaSlides-${version}-win-${arch}-Setup.${ext}"
+  artifactName: "AISlides-${version}-win-${arch}-Setup.${ext}"
 
 mac:
   icon: resources/BananaSlides.icon
@@ -71,7 +71,7 @@ mac:
     - target: zip
       arch:
         - arm64
-  artifactName: "BananaSlides-${version}-mac-${arch}.${ext}"
+  artifactName: "AISlides-${version}-mac-${arch}.${ext}"
 
 linux:
   target:
@@ -83,8 +83,8 @@ linux:
         - x64
   icon: resources/icon.png
   category: Office
-  maintainer: "Anionex <contact@anionex.com>"
-  artifactName: "BananaSlides-${version}-linux-${arch}.${ext}"
+  maintainer: "AI Slides"
+  artifactName: "AISlides-${version}-linux-${arch}.${ext}"
 
 nsis:
   oneClick: false
@@ -96,7 +96,7 @@ nsis:
     - zh_CN
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: "Banana Slides"
+  shortcutName: "AI 幻灯片"
   installerIcon: resources/icon.ico
   uninstallerIcon: resources/icon.ico
   installerSidebar: resources/installerSidebar.bmp
@@ -104,7 +104,3 @@ nsis:
 
 compression: normal
 
-publish:
-  provider: github
-  owner: Anionex
-  repo: banana-slides

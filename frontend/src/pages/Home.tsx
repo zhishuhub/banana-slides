@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { Sparkles, FileText, FileEdit, ImagePlus, Paperclip, Palette, Lightbulb, Search, Settings, FolderOpen, HelpCircle, Sun, Moon, Globe, Monitor, ChevronDown, Upload, RefreshCw, FilePlus, ArrowRight, X } from 'lucide-react';
-import { Button, Card, useToast, MaterialGeneratorModal, MaterialCenterModal, MaterialSelector, ReferenceFileList, ReferenceFileSelector, FilePreviewModal, HelpModal, Footer, GithubRepoCard, TextStyleSelector } from '@/components/shared';
+import { Button, Card, useToast, MaterialGeneratorModal, MaterialCenterModal, MaterialSelector, ReferenceFileList, ReferenceFileSelector, FilePreviewModal, HelpModal, Footer, TextStyleSelector } from '@/components/shared';
 import { MarkdownTextarea, type MarkdownTextareaRef } from '@/components/shared/MarkdownTextarea';
 import { TemplateSelector, getTemplateFile } from '@/components/shared/TemplateSelector';
 import { listUserTemplates, type UserTemplate, uploadReferenceFile, type ReferenceFile, associateFileToProject, triggerFileParse, associateMaterialsToProject, createPptRenovationProject } from '@/api/endpoints';
@@ -21,7 +21,10 @@ import { isDesktop } from '@/utils';
 type CreationType = 'idea' | 'outline' | 'description' | 'ppt_renovation';
 
 // 支持作为参考文件上传的文档扩展名（与后端 file_parser_service 保持一致）
-const ALLOWED_DOC_EXTENSIONS = ['pdf', 'docx', 'pptx', 'doc', 'ppt', 'xlsx', 'xls', 'csv', 'txt', 'md'];
+// 参考文件在本地解析，旧版 doc / ppt 需要 MinerU，不支持
+const ALLOWED_DOC_EXTENSIONS = ['pdf', 'docx', 'pptx', 'xlsx', 'xls', 'csv', 'txt', 'md'];
+// PPT 翻新依赖 MinerU 解析版面，暂不提供
+const HIDDEN_CREATION_TYPES: string[] = ['ppt_renovation'];
 
 // 页面特有翻译 - AI 可以直接看到所有文案，保留原始 key 结构
 const homeI18n = {
@@ -35,9 +38,9 @@ const homeI18n = {
       theme: { label: '主题模式', light: '浅色', dark: '深色', system: '跟随系统' }
     },
     home: {
-      title: '蕉幻',
+      title: 'AI 幻灯片',
       subtitle: 'Vibe your slides like vibe coding',
-      tagline: '基于 nano banana pro 的原生 AI PPT 生成器',
+      tagline: '一句话生成整套 PPT，还能口头修改、一键导出',
       features: {
         oneClick: '一句话生成 PPT',
         naturalEdit: '自然语言修改',
@@ -118,9 +121,9 @@ const homeI18n = {
       theme: { label: 'Theme', light: 'Light', dark: 'Dark', system: 'System' }
     },
     home: {
-      title: 'Banana Slides',
+      title: 'AI Slides',
       subtitle: 'Vibe your slides like vibe coding',
-      tagline: 'AI-native PPT generator powered by nano banana pro',
+      tagline: 'Generate a full deck from one sentence, edit by talking, export in one click',
       features: {
         oneClick: 'One-click PPT generation',
         naturalEdit: 'Natural language editing',
@@ -790,12 +793,12 @@ export const Home: React.FC = () => {
             <div className="flex items-center">
               <img
                 src={logoUrl}
-                alt="蕉幻 Banana Slides Logo"
+                alt="AI 幻灯片 Logo"
                 className="h-10 md:h-12 w-auto rounded-lg object-contain"
               />
             </div>
             <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-banana-600 via-orange-500 to-pink-500 bg-clip-text text-transparent">
-              蕉幻
+              AI 幻灯片
             </span>
           </div>
           <div className="flex items-center gap-2 md:gap-3">
@@ -925,8 +928,6 @@ export const Home: React.FC = () => {
             </div>
             {/* 分隔线 */}
             <div className="h-5 w-px bg-gray-300 dark:bg-border-primary mx-1" />
-            {/* GitHub 仓库卡片 */}
-            <GithubRepoCard />
             {/* 分隔线 */}
           </div>
         </div>
@@ -947,7 +948,7 @@ export const Home: React.FC = () => {
               backgroundSize: '200% auto',
               animation: 'gradient 3s ease infinite',
             }}>
-              {i18n.language?.startsWith('zh') ? `${t('home.title')} · Banana Slides` : 'Banana Slides'}
+              {t('home.title')}
             </span>
           </h1>
 
@@ -979,7 +980,7 @@ export const Home: React.FC = () => {
         <Card className="p-4 md:p-10 bg-white/90 dark:bg-background-secondary backdrop-blur-xl dark:backdrop-blur-none shadow-2xl dark:shadow-none border-0 dark:border dark:border-border-primary hover:shadow-3xl dark:hover:shadow-none transition-all duration-300 dark:rounded-2xl">
           {/* 选项卡 */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-6 md:mb-8">
-            {(Object.keys(tabConfig) as CreationType[]).map((type) => {
+            {(Object.keys(tabConfig) as CreationType[]).filter((type) => !HIDDEN_CREATION_TYPES.includes(type)).map((type) => {
               const config = tabConfig[type];
               return (
                 <button
@@ -1216,7 +1217,7 @@ export const Home: React.FC = () => {
             ref={fileInputRef}
             type="file"
             multiple
-            accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.md"
+            accept=".pdf,.docx,.pptx,.xls,.xlsx,.csv,.txt,.md"
             onChange={handleFileSelect}
             className="hidden"
           />

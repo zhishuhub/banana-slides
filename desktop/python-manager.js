@@ -75,6 +75,12 @@ async function startBackend(dataRoot) {
     CORS_ORIGINS: '*',
     FFMPEG_PATH: ffmpegExe,
   };
+  // AI 地址和密钥只认一键接入，不继承用户环境里的同名变量
+  for (const name of Object.keys(env)) {
+    if (/^(AI_PROVIDER_FORMAT|OPENAI_|GOOGLE_API_|VOLCENGINE_|ANTHROPIC_|LAZYLLM_|TEXT_|IMAGE_|MINERU_|BAIDU_|ELEVENLABS_)/i.test(name)) {
+      delete env[name];
+    }
+  }
 
   log.info(`[python-manager] Starting backend: ${backendPath} on an OS-assigned port`);
 

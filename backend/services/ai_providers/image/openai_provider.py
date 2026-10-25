@@ -45,8 +45,12 @@ _EXTENDED_IMAGE_QUALITY_TIERS = ('xhigh', 'max')
 
 
 def _is_gpt_image_model(model: str) -> bool:
-    """Return True for the GPT Image family (gpt-image-*, chatgpt-image-*)."""
-    return (model or '').strip().lower().startswith(_GPT_IMAGE_MODEL_PREFIXES)
+    """Return True for the GPT Image family (gpt-image-*, chatgpt-image-*).
+
+    一键接入后生图模型写别名 image，由平台换成当前的 GPT Image 模型，按同一族处理。
+    """
+    name = (model or '').strip().lower()
+    return name == 'image' or name.startswith(_GPT_IMAGE_MODEL_PREFIXES)
 
 
 def _gpt_image_supports_extended_quality(model: str) -> bool:

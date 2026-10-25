@@ -159,7 +159,7 @@ jobs:
           fi
           desktop/scripts/smoke-macos-dmg.sh "$dmg" "$RUNNER_TEMP/banana-desktop-smoke-mac"
           node desktop/scripts/test-markdown-image-macos.js \
-            "$RUNNER_TEMP/banana-desktop-smoke-mac/Applications/Banana Slides.app" \
+            "$RUNNER_TEMP/banana-desktop-smoke-mac/Applications/AI Slides.app" \
             "$RUNNER_TEMP/banana-desktop-markdown-image-mac"
 
       - name: Upload macOS smoke artifacts
