@@ -166,6 +166,16 @@ async function main() {
     }
     assert.ok(page, 'Electron main window was not available');
 
+    // 应用要先接入 AI 才显示主界面：写一份测试用的接入信息，刷新后接入页放行
+    const dataDir = path.join(userDataDir, 'data');
+    fs.mkdirSync(dataDir, { recursive: true });
+    fs.writeFileSync(path.join(dataDir, 'zhishu-connection.json'), JSON.stringify({
+      base_url: 'http://127.0.0.1:9/v1',
+      api_key: 'sk-smoke',
+      user_name: 'smoke',
+    }));
+    await page.reload();
+
     const expectedImageUrl = `${backendUrl}${material.url}`;
     const imageResponse = page.waitForResponse(
       (response) => response.url() === expectedImageUrl && response.request().resourceType() === 'image',
