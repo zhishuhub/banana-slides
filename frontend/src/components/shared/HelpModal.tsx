@@ -15,7 +15,7 @@ const i18nDict = {
     guide: {
       brand: 'AI 幻灯片',
       setup: '快速开始',
-      setupSub: '完成基础配置，开启 AI 创作之旅',
+      setupSub: '几步了解怎么用 AI 生成 PPT',
       features: '功能介绍',
       featuresSub: '探索如何使用 AI 快速创建精美 PPT',
       gallery: '结果案例',
@@ -58,7 +58,7 @@ const i18nDict = {
     guide: {
       brand: 'AI Slides',
       setup: 'Quick Start',
-      setupSub: 'Complete basic configuration and start your AI creation journey',
+      setupSub: 'A quick tour of making slides with AI',
       features: 'Features',
       featuresSub: 'Explore how to use AI to quickly create beautiful PPT',
       gallery: 'Showcases',

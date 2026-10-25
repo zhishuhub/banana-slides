@@ -20,8 +20,9 @@ const generatedFfmpegDir = path.join(desktopDir, 'ffmpeg');
 const ffmpegCacheDir = path.join(desktopDir, '.cache', 'ffmpeg');
 
 const windowsFfmpegArchive = {
-  url: 'https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-16-13-00/ffmpeg-n7.1.5-16-g9a4bb2c579-win64-gpl-7.1.zip',
-  sha256: '907ae59ae94d39561b9e03f6d5b0ec4a2778df1e75c763c9a0ddbae266415860',
+  // BtbN 的每日构建会过期下架，改用按版本号长期保留的 GyanD 构建
+  url: 'https://github.com/GyanD/codexffmpeg/releases/download/7.1.1/ffmpeg-7.1.1-essentials_build.zip',
+  sha256: '04861d3339c5ebe38b56c19a15cf2c0cc97f5de4fa8910e4d47e5e6404e4a2d4',
 };
 
 function copyDir(src, dest) {
